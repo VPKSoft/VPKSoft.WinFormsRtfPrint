@@ -1,5 +1,5 @@
 # VPKSoft.WinFormsRtfPrint
-A library to help to print the contents of a RichTextBox control.
+A library to help to print the contents of a [RichTextBox](https://docs.microsoft.com/en-us/dotnet/framework/winforms/controls/richtextbox-control-overview-windows-forms) control.
 
 ## Sample
 ```cs
