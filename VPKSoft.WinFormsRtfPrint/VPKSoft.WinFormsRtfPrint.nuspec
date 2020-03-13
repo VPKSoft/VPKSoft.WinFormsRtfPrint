@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <projectUrl>https://github.com/VPKSoft/VPKSoft.WinFormsRtfPrint</projectUrl>
+    <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
+    <description>$description$</description>
+    <releaseNotes>Initial NuGet release.</releaseNotes>
+    <copyright>Copyright © VPKSoft 2020</copyright>
+    <tags>richtextbox print utility </tags>
+    <icon>vpksoft_logo.png</icon>
+    <license type="expression">MIT</license>
+  </metadata>
+  <files>
+    <file src="vpksoft_logo.png" target="" />
+  </files>
+</package>

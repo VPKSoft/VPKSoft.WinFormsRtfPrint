@@ -1,3 +1,5 @@
+#region License
+/*
 MIT License
 
 Copyright (c) 2020 Petteri Kautonen
@@ -19,3 +21,40 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+*/
+#endregion
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using VPKSoft.WinFormsRtfPrint;
+
+namespace TestApp
+{
+    public partial class FormMain : Form
+    {
+        public FormMain()
+        {
+            InitializeComponent();
+        }
+
+        private void mnuOpen_Click(object sender, EventArgs e)
+        {
+            if (odRtf.ShowDialog(this) == DialogResult.OK)
+            {
+                rtbPrintTest.LoadFile(odRtf.FileName);
+            }
+        }
+
+        private void mnuPrint_Click(object sender, EventArgs e)
+        {
+            rtbPrintTest.PrintWithDialog();
+        }
+    }
+}
