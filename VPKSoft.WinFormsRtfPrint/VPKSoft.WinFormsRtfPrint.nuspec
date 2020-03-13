@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/VPKSoft/VPKSoft.WinFormsRtfPrint</projectUrl>
     <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
     <description>$description$</description>
-    <releaseNotes>Initial NuGet release.</releaseNotes>
+    <releaseNotes>Few bug fixes for the initial release.</releaseNotes>
     <copyright>Copyright © VPKSoft 2020</copyright>
     <tags>richtextbox print utility </tags>
     <icon>vpksoft_logo.png</icon>

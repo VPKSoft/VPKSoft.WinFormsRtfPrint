@@ -33,7 +33,7 @@ using System.Windows.Forms;
 
 namespace VPKSoft.WinFormsRtfPrint
 {
-    // ReSharped with Re, TODO
+    // ReSharped with ReSharper OSS version.
     // (C): https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms996492(v=msdn.10)
 
     /// <summary>
@@ -283,8 +283,9 @@ namespace VPKSoft.WinFormsRtfPrint
         /// <param name="showPrintDialog">if set to <c>true</c> a <see cref="PrintDialog"/> is shown before printing.</param>
         /// <param name="icon">The icon to use with the <see cref="PrintPreviewDialog"/> instance.</param>
         /// <param name="previewDialogTitle">The title to use with the <see cref="PrintPreviewDialog"/> class instance.</param>
+        /// <param name="onlyPreview">A value indicating whether to only show the preview of the print document.</param>
         /// <returns><c>true</c> if the user accepted the optional dialogs, no exceptions were thrown and the document was printed successfully, <c>false</c> otherwise.</returns>
-        public static bool PrintRichTextContents(IWin32Window owner, bool showPrintPreview, bool showPrintDialog, Icon icon, string previewDialogTitle)
+        public static bool PrintRichTextContents(IWin32Window owner, bool showPrintPreview, bool showPrintDialog, Icon icon, string previewDialogTitle, bool onlyPreview = false)
         {
             try
             {
@@ -313,6 +314,18 @@ namespace VPKSoft.WinFormsRtfPrint
 
                     if (showPrintPreview)
                     {
+                        if (icon == null)
+                        {
+                            try
+                            {
+                                icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
+                            }
+                            catch
+                            {
+                                // ignored..
+                            }
+                        }
+
                         using (var pdDialog = new PrintPreviewDialog())
                         {
                             pdDialog.Document = printDoc;
@@ -321,22 +334,28 @@ namespace VPKSoft.WinFormsRtfPrint
                                 pdDialog.Icon = icon;
                             }
 
+
                             pdDialog.WindowState = FormWindowState.Maximized;
                             if (previewDialogTitle != null)
                             {
                                 pdDialog.Text = previewDialogTitle;
                             }
 
-                            if (pdDialog.ShowDialog(owner) != DialogResult.OK)
+                            pdDialog.ShowDialog(owner);
+
+                            if (onlyPreview)
                             {
                                 RichTextBox = null;
-                                return false;
+                                return true;
                             }
                         }
                     }
 
                     // Start printing process
-                    printDoc.Print();
+                    if (!onlyPreview)
+                    {
+                        printDoc.Print();
+                    }
 
                     return true;
                 }
@@ -446,6 +465,12 @@ namespace VPKSoft.WinFormsRtfPrint
         private static void printDoc_BeginPrint(object sender,
             PrintEventArgs e)
         {
+            if (RichTextBox == null) // no RichTextBox, no deal..
+            {
+                e.Cancel = true;
+                return;
+            }
+
             // Start at the beginning of the text
             _mNFirstCharOnPage = 0;
         }
@@ -453,6 +478,12 @@ namespace VPKSoft.WinFormsRtfPrint
         private static void printDoc_PrintPage(object sender,
             PrintPageEventArgs e)
         {
+            if (RichTextBox == null) // no RichTextBox, no deal..
+            {
+                e.Cancel = true;
+                return;
+            }
+
             // To print the boundaries of the current page margins
             // uncomment the next line:
             // e.Graphics.DrawRectangle(System.Drawing.Pens.Blue, e.MarginBounds);
@@ -472,6 +503,12 @@ namespace VPKSoft.WinFormsRtfPrint
         private static void printDoc_EndPrint(object sender,
             PrintEventArgs e)
         {
+            if (RichTextBox == null) // no RichTextBox, no deal..
+            {
+                e.Cancel = true;
+                return;
+            }
+
             // Clean up cached information
             FormatRangeDone(RichTextBox.Handle);
             RichTextBox = null;

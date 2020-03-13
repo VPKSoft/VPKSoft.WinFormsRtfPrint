@@ -24,13 +24,7 @@ SOFTWARE.
 */
 #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace VPKSoft.WinFormsRtfPrint
@@ -74,7 +68,28 @@ namespace VPKSoft.WinFormsRtfPrint
             {
                 // IWin32Window owner, bool showPrintPreview, bool showPrintDialog, Icon icon, string previewDialogTitle
                 RtfPrint.RichTextBox = richTextBox;
-                return RtfPrint.PrintRichTextContents(null, false, false, (Icon)null, null);
+                return RtfPrint.PrintRichTextContents(null, showPrintPreview, showPrintDialog, icon, previewDialogTitle);
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Only shows the print preview dialog without printing the document.
+        /// </summary>
+        /// <param name="richTextBox">The <see cref="RichTextBox"/> class instance which contents are to be previewed.</param>
+        /// <param name="icon">A <see cref="Form"/> class instance to get the icon to be used with the <see cref="PrintPreviewDialog"/> dialog.</param>
+        /// <param name="previewDialogTitle">The title to use with the <see cref="PrintPreviewDialog"/> class instance.</param>
+        /// <returns><c>true</c> if the user accepted the optional dialogs, no exceptions were thrown and the document was printed successfully, <c>false</c> otherwise.</returns>
+        public static bool PrintPreview(this RichTextBox richTextBox, Icon icon, string previewDialogTitle)
+        {
+            try
+            {
+                // IWin32Window owner, bool showPrintPreview, bool showPrintDialog, Icon icon, string previewDialogTitle
+                RtfPrint.RichTextBox = richTextBox;
+                return RtfPrint.PrintRichTextContents(null, true, false, icon, previewDialogTitle, true);
             }
             catch
             {
