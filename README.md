@@ -34,6 +34,8 @@ namespace TestApp
     }
 }
 ```
+## Notes
+* [P/Invoke](https://docs.microsoft.com/en-us/dotnet/standard/native-interop/pinvoke) is used. 🙄
 
 This library is based on the [Microsoft article](https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms996492(v=msdn.10))  [Getting WYSIWYG Print Results from a .NET RichTextBox](https://docs.microsoft.com/en-us/previous-versions/dotnet/articles/ms996492(v=msdn.10)) by Martin Müller.
 
