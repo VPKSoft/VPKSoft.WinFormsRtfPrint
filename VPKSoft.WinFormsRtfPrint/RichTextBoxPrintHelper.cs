@@ -59,6 +59,18 @@ namespace VPKSoft.WinFormsRtfPrint
         /// <param name="richTextBox">The <see cref="RichTextBox"/> class instance which contents are to be printed.</param>
         /// <param name="showPrintPreview">if set to <c>true</c> a print preview dialog is shown before printing the document.</param>
         /// <param name="showPrintDialog">if set to <c>true</c> a <see cref="PrintDialog"/> is shown before printing.</param>
+        /// <returns><c>true</c> if the user accepted the optional dialogs, no exceptions were thrown and the document was printed successfully, <c>false</c> otherwise.</returns>
+        public static bool Print(this RichTextBox richTextBox, bool showPrintPreview, bool showPrintDialog)
+        {
+            return Print(richTextBox, showPrintPreview, showPrintDialog, null, null);
+        }
+
+        /// <summary>
+        /// Prints the document optionally displaying a <see cref="PrintDialog"/> and a <see cref="PrintPreviewDialog"/> to the user before printing.
+        /// </summary>
+        /// <param name="richTextBox">The <see cref="RichTextBox"/> class instance which contents are to be printed.</param>
+        /// <param name="showPrintPreview">if set to <c>true</c> a print preview dialog is shown before printing the document.</param>
+        /// <param name="showPrintDialog">if set to <c>true</c> a <see cref="PrintDialog"/> is shown before printing.</param>
         /// <param name="icon">A <see cref="Form"/> class instance to get the icon to be used with the <see cref="PrintPreviewDialog"/> dialog.</param>
         /// <param name="previewDialogTitle">The title to use with the <see cref="PrintPreviewDialog"/> class instance.</param>
         /// <returns><c>true</c> if the user accepted the optional dialogs, no exceptions were thrown and the document was printed successfully, <c>false</c> otherwise.</returns>

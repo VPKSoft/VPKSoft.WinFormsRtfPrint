@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/VPKSoft/VPKSoft.WinFormsRtfPrint</projectUrl>
     <iconUrl>http://icon_url_here_or_delete_this_line/</iconUrl>
     <description>$description$</description>
-    <releaseNotes>Few bug fixes for the initial release.</releaseNotes>
+    <releaseNotes>Added the IWin32Window Owner property. The PrintPreviewDialog doesn't prevent the printing any more.</releaseNotes>
     <copyright>Copyright © VPKSoft 2020</copyright>
     <tags>richtextbox print utility </tags>
     <icon>vpksoft_logo.png</icon>

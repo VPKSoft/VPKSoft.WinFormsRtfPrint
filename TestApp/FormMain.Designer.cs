@@ -35,6 +35,7 @@ namespace TestApp
             this.mnuPrint = new System.Windows.Forms.ToolStripMenuItem();
             this.rtbPrintTest = new System.Windows.Forms.RichTextBox();
             this.odRtf = new System.Windows.Forms.OpenFileDialog();
+            this.printPreviewDialog1 = new System.Windows.Forms.PrintPreviewDialog();
             this.msMain.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -60,14 +61,14 @@ namespace TestApp
             // mnuOpen
             // 
             this.mnuOpen.Name = "mnuOpen";
-            this.mnuOpen.Size = new System.Drawing.Size(180, 22);
+            this.mnuOpen.Size = new System.Drawing.Size(103, 22);
             this.mnuOpen.Text = "Open";
             this.mnuOpen.Click += new System.EventHandler(this.mnuOpen_Click);
             // 
             // mnuPrint
             // 
             this.mnuPrint.Name = "mnuPrint";
-            this.mnuPrint.Size = new System.Drawing.Size(180, 22);
+            this.mnuPrint.Size = new System.Drawing.Size(103, 22);
             this.mnuPrint.Text = "Print";
             this.mnuPrint.Click += new System.EventHandler(this.mnuPrint_Click);
             // 
@@ -86,6 +87,16 @@ namespace TestApp
             // 
             this.odRtf.DefaultExt = "*.rtf";
             this.odRtf.Filter = "Rich Text Files|*.rtf";
+            // 
+            // printPreviewDialog1
+            // 
+            this.printPreviewDialog1.AutoScrollMargin = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+            this.printPreviewDialog1.ClientSize = new System.Drawing.Size(400, 300);
+            this.printPreviewDialog1.Enabled = true;
+            this.printPreviewDialog1.Icon = ((System.Drawing.Icon)(resources.GetObject("printPreviewDialog1.Icon")));
+            this.printPreviewDialog1.Name = "printPreviewDialog1";
+            this.printPreviewDialog1.Visible = false;
             // 
             // FormMain
             // 
@@ -113,6 +124,7 @@ namespace TestApp
         private System.Windows.Forms.ToolStripMenuItem mnuPrint;
         private System.Windows.Forms.RichTextBox rtbPrintTest;
         private System.Windows.Forms.OpenFileDialog odRtf;
+        private System.Windows.Forms.PrintPreviewDialog printPreviewDialog1;
     }
 }
 

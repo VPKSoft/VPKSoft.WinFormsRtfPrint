@@ -46,6 +46,11 @@ namespace VPKSoft.WinFormsRtfPrint
         /// Gets or sets the <see cref="RichTextBox"/> control which contents are to be printed. The value is reset to <c>null</c> after printing.
         /// </summary>
         public static RichTextBox RichTextBox { get; set; }
+
+        /// <summary>
+        /// Any object that implements <see cref="T:System.Windows.Forms.IWin32Window" /> that represents the top-level window that will own the modal dialog boxes used by the library.
+        /// </summary>
+        public static IWin32Window Owner { get; set; }
         #endregion
 
         #region StructuresWinApi
@@ -289,6 +294,12 @@ namespace VPKSoft.WinFormsRtfPrint
         {
             try
             {
+                if (owner == null) // optional owner..
+                {
+                    owner = Owner;
+                }
+
+                _mNFirstCharOnPage = 0; // reset this...
                 using (var printDoc = new PrintDocument())
                 {
                     if (showPrintDialog)
@@ -307,10 +318,7 @@ namespace VPKSoft.WinFormsRtfPrint
                         }
                     }
 
-
-                    printDoc.BeginPrint += printDoc_BeginPrint;
                     printDoc.PrintPage += printDoc_PrintPage;
-                    printDoc.EndPrint += printDoc_EndPrint;
 
                     if (showPrintPreview)
                     {
@@ -318,7 +326,11 @@ namespace VPKSoft.WinFormsRtfPrint
                         {
                             try
                             {
-                                icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
+                                var assembly = Assembly.GetEntryAssembly()?.Location;
+                                if (assembly != null)
+                                {
+                                    icon = Icon.ExtractAssociatedIcon(assembly);
+                                }
                             }
                             catch
                             {
@@ -326,9 +338,14 @@ namespace VPKSoft.WinFormsRtfPrint
                             }
                         }
 
+
                         using (var pdDialog = new PrintPreviewDialog())
                         {
+                            ((ToolStripButton)((ToolStrip)pdDialog.Controls[1]).Items[0]).Visible = false;
+
+                            pdDialog.UseAntiAlias = true;
                             pdDialog.Document = printDoc;
+
                             if (icon != null)
                             {
                                 pdDialog.Icon = icon;
@@ -350,6 +367,9 @@ namespace VPKSoft.WinFormsRtfPrint
                             }
                         }
                     }
+
+                    printDoc.BeginPrint += printDoc_BeginPrint;
+                    printDoc.EndPrint += printDoc_EndPrint;
 
                     // Start printing process
                     if (!onlyPreview)
@@ -503,6 +523,11 @@ namespace VPKSoft.WinFormsRtfPrint
         private static void printDoc_EndPrint(object sender,
             PrintEventArgs e)
         {
+            var printDoc = (PrintDocument) sender;
+            printDoc.BeginPrint -= printDoc_BeginPrint;
+            printDoc.EndPrint -= printDoc_EndPrint;
+            printDoc.PrintPage -= printDoc_PrintPage;
+
             if (RichTextBox == null) // no RichTextBox, no deal..
             {
                 e.Cancel = true;

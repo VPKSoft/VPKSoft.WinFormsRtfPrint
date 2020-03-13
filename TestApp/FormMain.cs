@@ -47,7 +47,7 @@ namespace TestApp
 
         private void mnuPrint_Click(object sender, EventArgs e)
         {
-            rtbPrintTest.PrintWithDialog();
+            rtbPrintTest.Print(true, false);
         }
     }
 }
